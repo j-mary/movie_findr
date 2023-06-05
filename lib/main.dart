@@ -8,11 +8,12 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-const MyApp({ Key? key }) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Movie Recommendation',
       darkTheme: CustomTheme.darkTheme(context),
       themeMode: ThemeMode.dark,
