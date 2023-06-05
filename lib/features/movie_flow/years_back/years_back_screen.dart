@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_flow/core/constants.dart';
 import 'package:movie_flow/core/widgets/primary_button.dart';
+import 'package:movie_flow/features/movie_flow/result/result_screen.dart';
 
 class YearsBackScreen extends StatefulWidget {
   const YearsBackScreen(
@@ -62,7 +63,9 @@ class _YearsBackScreenState extends State<YearsBackScreen> {
             ),
             const Spacer(),
             PrimaryButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, ResultScreen.route());
+              },
               text: 'Amazing',
             ),
             const SizedBox(height: kMediumSpacing)

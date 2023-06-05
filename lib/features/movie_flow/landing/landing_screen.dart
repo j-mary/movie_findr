@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_flow/core/constants.dart';
 import 'package:movie_flow/core/widgets/primary_button.dart';
 
 class LandingScreen extends StatelessWidget {
@@ -28,6 +29,7 @@ class LandingScreen extends StatelessWidget {
               onPressed: nextPage,
               text: 'Get Started',
             ),
+            const SizedBox(height: kMediumSpacing)
           ],
         ),
       ),
