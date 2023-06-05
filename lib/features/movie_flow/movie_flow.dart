@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'genre/genre_screen.dart';
 import 'landing/landing_screen.dart';
 
 class MovieFlow extends StatefulWidget {
@@ -39,8 +40,7 @@ class MovieFlowState extends State<MovieFlow> {
       physics: const NeverScrollableScrollPhysics(),
       children: [
         LandingScreen(nextPage: nextPage, previousPage: previousPage),
-        Scaffold(body: Container(color: Colors.red)),
-        Scaffold(body: Container(color: Colors.green)),
+        GenreScreen(nextPage: nextPage, previousPage: previousPage),
         Scaffold(body: Container(color: Colors.blue)),
         Scaffold(body: Container(color: Colors.yellow)),
       ],
