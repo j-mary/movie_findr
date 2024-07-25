@@ -1,29 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_flow/core/constants.dart';
 import 'package:movie_flow/core/widgets/primary_button.dart';
+import 'package:movie_flow/features/movie_flow/movie_flow_controller.dart';
 
-class RatingScreen extends StatefulWidget {
-  const RatingScreen(
-      {Key? key, required this.nextPage, required this.previousPage})
-      : super(key: key);
-
-  final VoidCallback nextPage;
-  final VoidCallback previousPage;
+class RatingScreen extends ConsumerWidget {
+  const RatingScreen({Key? key}) : super(key: key);
 
   @override
-  State<RatingScreen> createState() => _RatingScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(movieFlowControllerProvider);
+    final notifier = ref.read(movieFlowControllerProvider.notifier);
 
-class _RatingScreenState extends State<RatingScreen> {
-  double rating = 5;
-
-  @override
-  Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
-          onPressed: widget.previousPage,
+          onPressed: notifier.previousPage,
         ),
       ),
       body: Center(
@@ -38,26 +32,24 @@ class _RatingScreenState extends State<RatingScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('${rating.ceil()}', style: textTheme.displayMedium),
+                Text('${state.rating.ceil()}', style: textTheme.displayMedium),
                 const Icon(Icons.star_rounded, color: Colors.amber, size: 62)
               ],
             ),
             const Spacer(),
             Slider(
               onChanged: (value) {
-                setState(() {
-                  rating = value;
-                });
+                notifier.updateRating(value.toInt());
               },
-              value: rating,
+              value: state.rating.toDouble(),
               min: 1,
               max: 10,
               divisions: 10,
-              label: '${rating.ceil()}',
+              label: '${state.rating.ceil()}',
             ),
             const Spacer(),
             PrimaryButton(
-              onPressed: widget.nextPage,
+              onPressed: notifier.nextPage,
               text: 'Yes please',
             ),
             const SizedBox(height: kMediumSpacing)

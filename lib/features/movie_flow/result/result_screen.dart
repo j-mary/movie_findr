@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_flow/core/constants.dart';
 import 'package:movie_flow/core/widgets/primary_button.dart';
-import 'package:movie_flow/features/movie_flow/genre/genre.dart';
+import 'package:movie_flow/features/movie_flow/movie_flow_controller.dart';
 
 import 'movie.dart';
 
-class ResultScreen extends StatelessWidget {
+class ResultScreen extends ConsumerWidget {
   static route({bool fullScreenDialog = true}) =>
       MaterialPageRoute(builder: (context) => const ResultScreen());
 
@@ -13,26 +14,10 @@ class ResultScreen extends StatelessWidget {
 
   final double movieHeight = 150;
 
-  final movie = const Movie(
-    title: 'Pulp Fiction',
-    overview:
-        "Pulp Fiction is a nonlinear narrative that intertwines several interconnected stories involving mobsters, a pair of hitmen, a boxer, a gangster's wife, and a mysterious briefcase. This Quentin Tarantino-directed film is known for its dark humor, pop culture references, and iconic dialogues",
-    voteAverage: 4.8,
-    genres: [
-      Genre(name: 'Crime'),
-      Genre(name: 'Neo-Noir'),
-      Genre(name: 'Black Comedy'),
-      Genre(name: 'Drama'),
-      Genre(name: 'Thriller'),
-      Genre(name: 'Independent Cinema')
-    ],
-    releaseDate: 'October 14, 1994',
-    backdropPath: '',
-    posterPath: '',
-  );
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(movieFlowControllerProvider);
+
     return Scaffold(
       // appBar: AppBar(
       //   automaticallyImplyLeading: false,
@@ -54,7 +39,7 @@ class ResultScreen extends StatelessWidget {
                       width: MediaQuery.of(context).size.width,
                       bottom: -(movieHeight / 2),
                       child: MovieImageDetails(
-                        movie: movie,
+                        movie: state.movie,
                         height: movieHeight,
                       ),
                     )
@@ -64,7 +49,7 @@ class ResultScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Text(
-                    movie.overview,
+                    state.movie.overview,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),

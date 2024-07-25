@@ -1,30 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_flow/core/constants.dart';
 import 'package:movie_flow/core/widgets/primary_button.dart';
+import 'package:movie_flow/features/movie_flow/movie_flow_controller.dart';
 import 'package:movie_flow/features/movie_flow/result/result_screen.dart';
 
-class YearsBackScreen extends StatefulWidget {
-  const YearsBackScreen(
-      {Key? key, required this.nextPage, required this.previousPage})
-      : super(key: key);
-
-  final VoidCallback nextPage;
-  final VoidCallback previousPage;
+class YearsBackScreen extends ConsumerWidget {
+  const YearsBackScreen({Key? key}) : super(key: key);
 
   @override
-  State<YearsBackScreen> createState() => _YearsBackScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(movieFlowControllerProvider);
+    final notifier = ref.read(movieFlowControllerProvider.notifier);
 
-class _YearsBackScreenState extends State<YearsBackScreen> {
-  double yearsBack = 10;
-
-  @override
-  Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
-          onPressed: widget.previousPage,
+          onPressed: notifier.previousPage,
         ),
       ),
       body: Center(
@@ -39,7 +33,8 @@ class _YearsBackScreenState extends State<YearsBackScreen> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('${yearsBack.ceil()}', style: textTheme.displayMedium),
+                Text('${state.yearsBack.ceil()}',
+                    style: textTheme.displayMedium),
                 Text(
                   'Years back',
                   style: textTheme.headlineMedium?.copyWith(
@@ -51,15 +46,13 @@ class _YearsBackScreenState extends State<YearsBackScreen> {
             const Spacer(),
             Slider(
               onChanged: (value) {
-                setState(() {
-                  yearsBack = value;
-                });
+                notifier.updateYearsBack(value.toInt());
               },
-              value: yearsBack,
+              value: state.yearsBack.toDouble(),
               min: 0,
               max: 70,
               divisions: 70,
-              label: '${yearsBack.ceil()}',
+              label: '${state.yearsBack.ceil()}',
             ),
             const Spacer(),
             PrimaryButton(
