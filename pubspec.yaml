@@ -12,6 +12,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  riverpod: ^2.5.1
+  flutter_riverpod: ^2.5.1
 
 dev_dependencies:
   flutter_test:
