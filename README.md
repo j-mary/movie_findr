@@ -1,30 +1,64 @@
-# movie_flow
+# Movie Flow
 
-A new Flutter project.
+A Flutter application that helps users find movie recommendations based on their preferences.
+
+## Overview
+
+Movie Flow guides users through a series of screens to collect preferences like genre, rating, and time period, then recommends movies based on these selections.
+
+## Features
+
+- Genre selection
+- Rating preferences
+- Time period selection
+- Movie recommendations
 
 ## Getting Started
 
-This project is a starting point for a Flutter application that follows the
-[simple app state management
-tutorial](https://flutter.dev/docs/development/data-and-backend/state-mgmt/simple).
+### Prerequisites
 
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Flutter SDK (>=3.4.4)
+- Dart SDK (>=3.4.4)
+
+### Installation
+
+1. Clone the repository
+```bash
+git clone https://github.com/{github-username}/movie_flow.git
+```
+
+2. Navigate to the project directory
+```bash
+cd movie_flow
+```
+
+3. Install dependencies
+```bash
+flutter pub get
+```
+
+4. Run the app
+```bash
+flutter run
+```
+
+## Project Structure
+
+For detailed information about the project architecture and folder structure, please refer to the [ARCHITECTURE.md](ARCHITECTURE.md) file.
+
+## Dependencies
+
+- flutter_riverpod: ^2.5.1
+- riverpod: ^2.5.1
 
 ## Assets
 
-The `assets` directory houses images, fonts, and any other files you want to
-include with your application.
+The application uses assets stored in the `assets/images/` directory.
 
-The `assets/images` directory contains [resolution-aware
-images](https://flutter.dev/docs/development/ui/assets-and-images#resolution-aware).
+## Contributing
 
-## Localization
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-This project generates localized messages based on arb files found in
-the `lib/src/localization` directory.
+## License
 
-To support additional languages, please visit the tutorial on
-[Internationalizing Flutter
-apps](https://flutter.dev/docs/development/accessibility-and-localization/internationalization)
+This project is licensed under the MIT License - see the LICENSE file for details.
