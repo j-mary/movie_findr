@@ -17,7 +17,7 @@ class ListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return UnconstrainedBox(
       child: Material(
-        color: genre.isSelected!
+        color: genre.isSelected
             ? Theme.of(context).colorScheme.primary
             : Colors.transparent,
         borderRadius: BorderRadius.circular(kBorderRadius),

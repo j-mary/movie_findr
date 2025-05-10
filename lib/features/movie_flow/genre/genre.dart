@@ -6,8 +6,8 @@ import 'package:flutter/foundation.dart';
 @immutable
 class Genre extends Equatable {
   final String name;
-  final bool? isSelected;
-  final int? id;
+  final bool isSelected;
+  final int id;
 
   const Genre({
     required this.name,
@@ -18,7 +18,7 @@ class Genre extends Equatable {
   Genre toggleSelected() {
     return Genre(
       name: name,
-      isSelected: !isSelected!,
+      isSelected: !isSelected,
       id: id,
     );
   }
@@ -59,5 +59,5 @@ class Genre extends Equatable {
   String toString() => '${toMap()}';
 
   @override
-  List<Object?> get props => [name, isSelected, id];
+  List<Object> get props => [name, isSelected, id];
 }
