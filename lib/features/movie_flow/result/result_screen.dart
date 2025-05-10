@@ -10,7 +10,7 @@ class ResultScreen extends ConsumerWidget {
   static route({bool fullScreenDialog = true}) =>
       MaterialPageRoute(builder: (context) => const ResultScreen());
 
-  const ResultScreen({Key? key}) : super(key: key);
+  const ResultScreen({super.key});
 
   final double movieHeight = 150;
 
@@ -68,7 +68,7 @@ class ResultScreen extends ConsumerWidget {
 }
 
 class CoverImage extends StatelessWidget {
-  const CoverImage({Key? key}) : super(key: key);
+  const CoverImage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -95,8 +95,8 @@ class CoverImage extends StatelessWidget {
 }
 
 class MovieImageDetails extends StatelessWidget {
-  const MovieImageDetails({Key? key, required this.movie, required this.height})
-      : super(key: key);
+  const MovieImageDetails(
+      {super.key, required this.movie, required this.height});
 
   final Movie movie;
   final double height;
@@ -132,8 +132,8 @@ class MovieImageDetails extends StatelessWidget {
                     Text(
                       '${movie.voteAverage}',
                       style: textTheme.bodyMedium?.copyWith(
-                          color:
-                              textTheme.bodyMedium?.color?.withValues(alpha: 0.62)),
+                          color: textTheme.bodyMedium?.color
+                              ?.withValues(alpha: 0.62)),
                     ),
                     const Icon(
                       Icons.star_rounded,

@@ -15,7 +15,7 @@ final movieFlowControllerProvider =
 });
 
 class MovieFlowController extends StateNotifier<MovieFlowState> {
-  MovieFlowController(MovieFlowState state) : super(state);
+  MovieFlowController(super.state);
 
   void toggleSelected(Genre genre) {
     state = state.copyWith(

@@ -6,7 +6,7 @@ import 'package:movie_flow/features/movie_flow/movie_flow_controller.dart';
 import 'package:movie_flow/features/movie_flow/result/result_screen.dart';
 
 class YearsBackScreen extends ConsumerWidget {
-  const YearsBackScreen({Key? key}) : super(key: key);
+  const YearsBackScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,7 +38,8 @@ class YearsBackScreen extends ConsumerWidget {
                 Text(
                   'Years back',
                   style: textTheme.headlineMedium?.copyWith(
-                    color: textTheme.headlineMedium?.color?.withValues(alpha: .62),
+                    color:
+                        textTheme.headlineMedium?.color?.withValues(alpha: .62),
                   ),
                 ),
               ],

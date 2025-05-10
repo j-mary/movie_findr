@@ -3,12 +3,12 @@ import 'package:movie_flow/core/constants.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.text,
     this.isLoading = false,
     this.width = double.infinity,
-  }) : super(key: key);
+  });
 
   final VoidCallback onPressed;
   final bool isLoading;

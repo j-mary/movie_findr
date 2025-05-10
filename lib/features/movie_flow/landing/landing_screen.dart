@@ -5,7 +5,7 @@ import 'package:movie_flow/core/widgets/primary_button.dart';
 import 'package:movie_flow/features/movie_flow/movie_flow_controller.dart';
 
 class LandingScreen extends ConsumerWidget {
-  const LandingScreen({Key? key}) : super(key: key);
+  const LandingScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

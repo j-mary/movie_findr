@@ -8,7 +8,7 @@ import 'rating/rating_screen.dart';
 import 'years_back/years_back_screen.dart';
 
 class MovieFlow extends ConsumerWidget {
-  const MovieFlow({Key? key}) : super(key: key);
+  const MovieFlow({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

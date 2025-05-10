@@ -5,10 +5,10 @@ import 'genre.dart';
 
 class ListCard extends StatelessWidget {
   const ListCard({
-    Key? key,
+    super.key,
     required this.genre,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   final Genre genre;
   final VoidCallback onTap;
@@ -17,7 +17,9 @@ class ListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return UnconstrainedBox(
       child: Material(
-        color: genre.isSelected! ? Theme.of(context).colorScheme.primary : Colors.transparent,
+        color: genre.isSelected!
+            ? Theme.of(context).colorScheme.primary
+            : Colors.transparent,
         borderRadius: BorderRadius.circular(kBorderRadius),
         child: InkWell(
           borderRadius: BorderRadius.circular(kBorderRadius),
