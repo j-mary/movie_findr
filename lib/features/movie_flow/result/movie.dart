@@ -1,8 +1,9 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:movie_flow/features/movie_flow/genre/genre.dart';
 
 @immutable
-class Movie {
+class Movie extends Equatable {
   final String title;
   final String overview;
   final num voteAverage;
@@ -33,33 +34,29 @@ class Movie {
   String get genresCommaSeparated =>
       genres.map((e) => e.name).toList().join(', ');
 
-  @override
-  String toString() {
-    return 'Movie(title: $title, overview: $overview, voteAverage: $voteAverage, genres: $genres, releaseDate: $releaseDate, backdropPath: $backdropPath, posterPath: $posterPath)';
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'overview': overview,
+      'voteAverage': voteAverage,
+      'genres': genres.map((e) => e.toMap()).toList(),
+      'releaseDate': releaseDate,
+      'backdropPath': backdropPath,
+      'posterPath': posterPath,
+    };
   }
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is Movie &&
-        other.title == title &&
-        other.overview == overview &&
-        other.voteAverage == voteAverage &&
-        listEquals(other.genres, genres) &&
-        other.releaseDate == releaseDate &&
-        other.backdropPath == backdropPath &&
-        other.posterPath == posterPath;
-  }
+  String toString() => '${toMap()}';
 
   @override
-  int get hashCode {
-    return title.hashCode ^
-        overview.hashCode ^
-        voteAverage.hashCode ^
-        genres.hashCode ^
-        releaseDate.hashCode ^
-        backdropPath.hashCode ^
-        posterPath.hashCode;
-  }
+  List<Object?> get props => [
+        title,
+        overview,
+        voteAverage,
+        genres,
+        releaseDate,
+        backdropPath,
+        posterPath,
+      ];
 }

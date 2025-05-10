@@ -1,11 +1,10 @@
-import 'package:flutter/foundation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-
 import 'package:movie_flow/features/movie_flow/genre/genre.dart';
 import 'package:movie_flow/features/movie_flow/result/movie.dart';
 
 @immutable
-class MovieFlowState {
+class MovieFlowState extends Equatable {
   final PageController pageController;
   final int rating;
   final int yearsBack;
@@ -36,31 +35,27 @@ class MovieFlowState {
     );
   }
 
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is MovieFlowState &&
-        other.pageController == pageController &&
-        other.rating == rating &&
-        other.yearsBack == yearsBack &&
-        listEquals(other.genres, genres) &&
-        other.movie == movie;
+  Map<String, dynamic> toMap() {
+    return {
+      'pageController': pageController,
+      'rating': rating,
+      'yearsBack': yearsBack,
+      'genres': genres.map((e) => e.toMap()).toList(),
+      'movie': movie.toMap(),
+    };
   }
 
   @override
-  int get hashCode {
-    return pageController.hashCode ^
-        rating.hashCode ^
-        yearsBack.hashCode ^
-        genres.hashCode ^
-        movie.hashCode;
-  }
+  String toString() => '${toMap()}';
 
   @override
-  String toString() {
-    return 'MovieFlowState(pageController: $pageController, rating: $rating, yearsBack: $yearsBack, genres: $genres, movie: $movie)';
-  }
+  List<Object?> get props => [
+        pageController,
+        rating,
+        yearsBack,
+        genres,
+        movie,
+      ];
 }
 
 const movieMock = Movie(

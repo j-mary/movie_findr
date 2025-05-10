@@ -1,9 +1,10 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
-class Genre {
+class Genre extends Equatable {
   final String name;
   final bool? isSelected;
   final int? id;
@@ -55,18 +56,8 @@ class Genre {
   factory Genre.fromJson(String source) => Genre.fromMap(json.decode(source));
 
   @override
-  String toString() => 'Genre(name: $name, isSelected: $isSelected, id: $id)';
+  String toString() => '${toMap()}';
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is Genre &&
-        other.name == name &&
-        other.isSelected == isSelected &&
-        other.id == id;
-  }
-
-  @override
-  int get hashCode => name.hashCode ^ isSelected.hashCode ^ id.hashCode;
+  List<Object?> get props => [name, isSelected, id];
 }
