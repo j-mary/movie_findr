@@ -38,7 +38,7 @@ class YearsBackScreen extends ConsumerWidget {
                 Text(
                   'Years back',
                   style: textTheme.headlineMedium?.copyWith(
-                    color: textTheme.headlineMedium?.color?.withOpacity(0.62),
+                    color: textTheme.headlineMedium?.color?.withValues(alpha: .62),
                   ),
                 ),
               ],

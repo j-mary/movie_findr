@@ -133,7 +133,7 @@ class MovieImageDetails extends StatelessWidget {
                       '${movie.voteAverage}',
                       style: textTheme.bodyMedium?.copyWith(
                           color:
-                              textTheme.bodyMedium?.color?.withOpacity(0.62)),
+                              textTheme.bodyMedium?.color?.withValues(alpha: 0.62)),
                     ),
                     const Icon(
                       Icons.star_rounded,
