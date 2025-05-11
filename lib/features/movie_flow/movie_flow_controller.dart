@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_flow/features/movie_flow/movie_flow_state.dart';
 
-import 'genre/genre.dart';
+import '../../core/models/genre.dart';
 
 final movieFlowControllerProvider =
     NotifierProvider.autoDispose<MovieFlowController, MovieFlowState>(() {

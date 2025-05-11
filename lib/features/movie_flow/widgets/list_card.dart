@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_flow/core/constants.dart';
 
-import 'genre.dart';
+import '../../../core/models/genre.dart';
 
 class ListCard extends StatelessWidget {
   const ListCard({

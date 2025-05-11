@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:movie_flow/features/movie_flow/genre/genre.dart';
+import 'package:movie_flow/core/models/genre.dart';
 
 @immutable
 class Movie extends Equatable {

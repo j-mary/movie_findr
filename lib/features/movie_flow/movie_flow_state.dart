@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_flow/features/movie_flow/genre/genre.dart';
-import 'package:movie_flow/features/movie_flow/result/movie.dart';
+import 'package:movie_flow/core/models/genre.dart';
+import 'package:movie_flow/core/models/movie.dart';
 
 @immutable
 class MovieFlowState extends Equatable {
