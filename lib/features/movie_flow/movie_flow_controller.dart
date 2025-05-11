@@ -63,4 +63,8 @@ class MovieFlowController extends AutoDisposeNotifier<MovieFlowState> {
       curve: Curves.easeInCubic,
     );
   }
+
+  void reset() {
+    state = MovieFlowState(pageController: PageController());
+  }
 }

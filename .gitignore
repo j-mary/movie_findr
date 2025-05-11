@@ -47,3 +47,6 @@ app.*.map.json
 
 # Cmake
 android/app/.cxx/Debug/
+
+# Ignore all .env files
+.env*
