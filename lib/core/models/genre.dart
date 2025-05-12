@@ -24,6 +24,11 @@ class Genre {
     );
   }
 
+  const Genre.initial()
+      : id = 0,
+        name = 'name',
+        isSelected = false;
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,

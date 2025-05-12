@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_flow/theme/custom_theme.dart';
 
-import 'features/movie_flow/screens/movie_flow.dart';
+import 'features/movie/screens/movie_flow.dart';
 
 void main() async {
   runApp(const ProviderScope(child: MyApp()));

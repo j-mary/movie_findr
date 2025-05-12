@@ -1,32 +1,41 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_flow/core/models/genre.dart';
 import 'package:movie_flow/core/models/movie.dart';
 
 @immutable
-class MovieFlowState extends Equatable {
+class MovieState extends Equatable {
   final PageController pageController;
   final int rating;
   final int yearsBack;
-  final List<Genre> genres;
-  final Movie movie;
+  final AsyncValue<List<Genre>> genres;
+  final AsyncValue<Movie> movie;
 
-  const MovieFlowState({
+  const MovieState({
     required this.pageController,
     this.rating = 5,
     this.yearsBack = 10,
-    this.genres = genresMock,
-    this.movie = movieMock,
+    required this.genres,
+    required this.movie,
   });
 
-  MovieFlowState copyWith({
+  factory MovieState.initial() {
+    return MovieState(
+      pageController: PageController(),
+      genres: AsyncData([]),
+      movie: AsyncData(Movie.initial()),
+    );
+  }
+
+  MovieState copyWith({
     PageController? pageController,
     int? rating,
     int? yearsBack,
-    List<Genre>? genres,
-    Movie? movie,
+    AsyncValue<List<Genre>>? genres,
+    AsyncValue<Movie>? movie,
   }) {
-    return MovieFlowState(
+    return MovieState(
       pageController: pageController ?? this.pageController,
       rating: rating ?? this.rating,
       yearsBack: yearsBack ?? this.yearsBack,
@@ -40,8 +49,8 @@ class MovieFlowState extends Equatable {
       'pageController': pageController,
       'rating': rating,
       'yearsBack': yearsBack,
-      'genres': genres.map((e) => e.toMap()).toList(),
-      'movie': movie.toMap(),
+      'genres': genres.value?.map((e) => e.toMap()).toList(),
+      'movie': movie.value?.toMap(),
     };
   }
 

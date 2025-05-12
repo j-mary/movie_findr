@@ -45,11 +45,11 @@ class MovieEntity extends Equatable {
     return MovieEntity(
       title: map['title'] ?? '',
       overview: map['overview'] ?? '',
-      voteAverage: map['voteAverage']?.toDouble() ?? 0,
-      genreIds: (map['genreIds'] as List<dynamic>?)?.cast<int>() ?? [],
-      releaseDate: map['releaseDate'] ?? '',
-      backdropPath: map['backdropPath'],
-      posterPath: map['posterPath'],
+      voteAverage: map['vote_average']?.toDouble() ?? 0,
+      genreIds: (map['genre_ids'] as List<dynamic>?)?.cast<int>() ?? [],
+      releaseDate: map['release_date'] ?? '',
+      backdropPath: map['backdrop_path'],
+      posterPath: map['poster_path'],
     );
   }
 
@@ -57,11 +57,11 @@ class MovieEntity extends Equatable {
     return {
       'title': title,
       'overview': overview,
-      'voteAverage': voteAverage,
-      'genreIds': genreIds,
-      'releaseDate': releaseDate,
-      'backdropPath': backdropPath,
-      'posterPath': posterPath,
+      'vote_average': voteAverage,
+      'genre_ids': genreIds,
+      'release_date': releaseDate,
+      'backdrop_path': backdropPath,
+      'poster_path': posterPath,
     };
   }
 

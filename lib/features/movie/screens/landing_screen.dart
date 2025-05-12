@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_flow/core/constants.dart';
-import 'package:movie_flow/core/widgets/primary_button.dart';
-import 'package:movie_flow/features/movie_flow/movie_flow_controller.dart';
+import 'package:movie_flow/core/index.dart';
+import 'package:movie_flow/features/movie/movie_controller.dart';
 
 class LandingScreen extends ConsumerWidget {
   const LandingScreen({super.key});
@@ -20,7 +19,7 @@ class LandingScreen extends ConsumerWidget {
               textAlign: TextAlign.center,
             ),
             const Spacer(),
-            Image.asset('assets/images/undraw_horror_movie.png'),
+            Image.asset(kImgMoviePoster),
             const Spacer(),
             PrimaryButton(
               onPressed:

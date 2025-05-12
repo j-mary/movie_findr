@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_flow/core/constants.dart';
+import 'package:movie_flow/core/utils/constants.dart';
 import 'package:movie_flow/core/widgets/primary_button.dart';
-import 'package:movie_flow/features/movie_flow/movie_flow_controller.dart';
-import 'package:movie_flow/features/movie_flow/screens/result_screen.dart';
+import 'package:movie_flow/features/movie/movie_controller.dart';
+import 'package:movie_flow/features/movie/screens/result_screen.dart';
 
 class YearsBackScreen extends ConsumerWidget {
   const YearsBackScreen({super.key});
@@ -58,6 +58,7 @@ class YearsBackScreen extends ConsumerWidget {
             const Spacer(),
             PrimaryButton(
               onPressed: () {
+                notifier.getRecommendedMovie();
                 Navigator.push(context, ResultScreen.route());
               },
               text: 'Amazing',

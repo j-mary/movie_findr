@@ -38,13 +38,16 @@ class Movie {
   }
 
   Movie.initial()
-      : title = '',
-        overview = '',
-        voteAverage = 0,
-        genres = [],
-        releaseDate = '',
-        backdropPath = '',
-        posterPath = '';
+      : title = "The King's Man",
+        overview =
+            "As a collection of history's worst tyrants and criminal masterminds gather to plot a war to wipe out millions, one man must race against time to stop them.",
+        voteAverage = 6.747,
+        genres = List.filled(2, Genre.initial()),
+        releaseDate = '2021-12-22',
+        backdropPath =
+            'https://image.tmdb.org/t/p/original/4OTYefcAlaShn6TGVK33UxLW9R7.jpg',
+        posterPath =
+            'https://image.tmdb.org/t/p/original/aq4Pwv5Xeuvj6HZKtxyd23e6bE9.jpg';
 
   String get genresCommaSeparated =>
       genres.map((e) => e.name).toList().join(', ');
