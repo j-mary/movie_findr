@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:movie_flow/core/models/genre.dart';
 
 // maps data from the api
 
@@ -50,4 +51,8 @@ class GenreEntity extends Equatable {
 
   @override
   List<Object> get props => [name, id];
+
+  // used for test cases
+  factory GenreEntity.fromGenre(Genre genre) =>
+      GenreEntity(name: genre.name, id: genre.id);
 }

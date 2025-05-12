@@ -23,13 +23,6 @@ class FailureScreen extends StatelessWidget {
       );
     }
 
-    if (error is DefaultException) {
-      return _FailureBody(
-        message: (error as DefaultException).message,
-        retry: retry,
-      );
-    }
-
     return _FailureBody(
       message: 'Something went wrong',
       retry: retry,

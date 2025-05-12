@@ -25,8 +25,8 @@ class Genre {
   }
 
   const Genre.initial()
-      : id = 0,
-        name = 'name',
+      : id = 1,
+        name = 'Action',
         isSelected = false;
 
   Map<String, dynamic> toMap() {

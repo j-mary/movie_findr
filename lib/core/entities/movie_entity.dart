@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:movie_flow/core/models/movie.dart';
 
 @immutable
 class MovieEntity extends Equatable {
@@ -78,4 +79,16 @@ class MovieEntity extends Equatable {
         backdropPath,
         posterPath,
       ];
+
+// Used for test cases
+  factory MovieEntity.fromMovie(Movie movie) {
+    return MovieEntity(
+        title: movie.title,
+        overview: movie.overview,
+        voteAverage: movie.voteAverage,
+        genreIds: movie.genres.map((e) => e.id).toList(),
+        releaseDate: movie.releaseDate,
+        backdropPath: movie.backdropPath,
+        posterPath: movie.posterPath);
+  }
 }

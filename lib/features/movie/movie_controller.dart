@@ -70,11 +70,12 @@ class MovieFlowController extends AutoDisposeNotifier<MovieState> {
   }
 
   void updateRating(int updatedRating) {
-    state = state.copyWith(rating: updatedRating);
+    state = state.copyWith(rating: updatedRating < 0 ? 0 : updatedRating);
   }
 
   void updateYearsBack(int updatedYearsBack) {
-    state = state.copyWith(yearsBack: updatedYearsBack);
+    state =
+        state.copyWith(yearsBack: updatedYearsBack < 0 ? 0 : updatedYearsBack);
   }
 
   void nextPage() {
@@ -97,7 +98,13 @@ class MovieFlowController extends AutoDisposeNotifier<MovieState> {
     );
   }
 
-  void reset() {
-    state = MovieState.initial();
+  Future<void> reset({bool? resetGenres}) async {
+    if (resetGenres == true) {
+      state = MovieState.initial().copyWith(genres: AsyncData([]));
+    } else {
+      state = MovieState.initial();
+    }
+
+    return;
   }
 }
