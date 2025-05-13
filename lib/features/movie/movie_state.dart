@@ -67,30 +67,8 @@ class MovieState extends Equatable {
       ];
 }
 
-const movieMock = Movie(
-  title: 'Pulp Fiction',
-  overview:
-      "Pulp Fiction is a nonlinear narrative that intertwines several interconnected stories involving mobsters, a pair of hitmen, a boxer, a gangster's wife, and a mysterious briefcase. This Quentin Tarantino-directed film is known for its dark humor, pop culture references, and iconic dialogues",
-  voteAverage: 4.8,
-  genres: [
-    Genre(name: 'Crime'),
-    Genre(name: 'Neo-Noir'),
-    Genre(name: 'Black Comedy'),
-    Genre(name: 'Drama'),
-    Genre(name: 'Thriller'),
-    Genre(name: 'Independent Cinema')
-  ],
-  releaseDate: 'October 14, 1994',
-  backdropPath: '',
-  posterPath: '',
-);
-
-const List<Genre> genresMock = [
-  Genre(name: 'Action'),
-  Genre(name: 'Comedy'),
-  Genre(name: 'Horror'),
-  Genre(name: 'Anime'),
-  Genre(name: 'Drama'),
-  Genre(name: 'Family'),
-  Genre(name: 'Romance'),
-];
+/// Provider to track if the landing_screen animation has played.
+///
+/// Using a regular StateProvider (not autoDispose) to persist the state.
+final landingScreenAnimationPlayedProvider =
+    StateProvider<bool>((ref) => false);
