@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_flow/core/index.dart';
-import 'package:movie_flow/features/movie/movie_controller.dart';
-import 'package:movie_flow/features/movie/movie_state.dart';
+import 'package:movie_findr/core/index.dart';
+import 'package:movie_findr/features/movie/movie_controller.dart';
+import 'package:movie_findr/features/movie/movie_state.dart';
 
 class LandingScreen extends ConsumerStatefulWidget {
   const LandingScreen({super.key});
@@ -82,6 +82,7 @@ class _LandingScreenState extends ConsumerState<LandingScreen>
                     end: Offset.zero,
                   ).animate(textAnimation),
                   child: Text(
+                    key: ValueKey('titleText'),
                     "Let's find a movie",
                     style: Theme.of(context).textTheme.headlineSmall,
                     textAlign: TextAlign.center,

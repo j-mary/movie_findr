@@ -1,5 +1,5 @@
-name: movie_flow
-description: A new Flutter project.
+name: movie_findr
+description: A Flutter application that helps users discover movie recommendations based on their preferences.
 
 # Prevent accidental publishing to pub.dev.
 publish_to: 'none'

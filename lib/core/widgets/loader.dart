@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_flow/core/index.dart';
+import 'package:movie_findr/core/index.dart';
 
 /// Modified version of https://github.com/spporan/FlutterOverlayLoader/blob/master/lib/flutter_overlay_loader.dart
 

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_flow/core/index.dart';
+import 'package:movie_findr/core/index.dart';
 
 final movieRepositoryProvider = Provider<MovieRepository>((ref) {
   final dio = ref.watch(dioProvider);

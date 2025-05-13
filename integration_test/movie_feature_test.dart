@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:movie_flow/core/index.dart';
-import 'package:movie_flow/features/movie/movie_repository.dart';
-import 'package:movie_flow/main.dart';
+import 'package:movie_findr/core/index.dart';
+import 'package:movie_findr/features/movie/movie_repository.dart';
+import 'package:movie_findr/main.dart';
 
 import 'stubs/stub_movie_repository.dart';
 
@@ -21,9 +22,10 @@ void main() {
     );
 
     await tester.pumpWidget(testProviderScope);
+    await tester.pumpAndSettle();
 
     // Verify we're on the landing page
-    expect(find.text("Let's find a movie"), findsOneWidget);
+    expect(find.byKey(ValueKey('titleText')), findsOneWidget);
     expect(find.byType(PrimaryButton), findsOneWidget);
 
     await tester.tap(find.byType(PrimaryButton));
@@ -68,9 +70,10 @@ void main() {
     );
 
     await tester.pumpWidget(testProviderScope);
+    await tester.pumpAndSettle();
 
     // Verify we're on the landing page
-    expect(find.text("Let's find a movie"), findsOneWidget);
+    expect(find.byKey(ValueKey('titleText')), findsOneWidget);
     expect(find.byType(PrimaryButton), findsOneWidget);
 
     await tester.tap(find.byType(PrimaryButton));

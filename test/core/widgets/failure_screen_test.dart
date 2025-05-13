@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:movie_flow/core/utils/index.dart';
-import 'package:movie_flow/core/widgets/failure_screen.dart';
+import 'package:movie_findr/core/utils/index.dart';
+import 'package:movie_findr/core/widgets/failure_screen.dart';
 
 void main() {
   testWidgets('Should display the given message on the failure screen',

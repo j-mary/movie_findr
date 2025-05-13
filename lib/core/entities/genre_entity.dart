@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:movie_flow/core/models/genre.dart';
+import 'package:movie_findr/core/models/genre.dart';
 
 // maps data from the api
 

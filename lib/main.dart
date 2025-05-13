@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_flow/theme/custom_theme.dart';
+import 'package:movie_findr/theme/custom_theme.dart';
 
 import 'features/movie/screens/movie_flow.dart';
 
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Movie Recommendation',
+      title: 'MovieFindr',
       darkTheme: CustomTheme.darkTheme(context),
       themeMode: ThemeMode.dark,
       home: const MovieFlow(),

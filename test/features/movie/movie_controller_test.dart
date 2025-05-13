@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:movie_flow/core/index.dart';
-import 'package:movie_flow/features/movie/movie_controller.dart';
-import 'package:movie_flow/features/movie/movie_service.dart';
-import 'package:movie_flow/features/movie/movie_state.dart';
+import 'package:movie_findr/core/index.dart';
+import 'package:movie_findr/features/movie/movie_controller.dart';
+import 'package:movie_findr/features/movie/movie_service.dart';
+import 'package:movie_findr/features/movie/movie_state.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 class MockMovieService extends Mock implements MovieService {}

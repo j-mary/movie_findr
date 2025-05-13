@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_flow/core/utils/constants.dart';
+import 'package:movie_findr/core/utils/constants.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({

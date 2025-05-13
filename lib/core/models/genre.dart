@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:movie_flow/core/entities/genre_entity.dart';
+import 'package:movie_findr/core/entities/genre_entity.dart';
 
 @immutable
 class Genre {

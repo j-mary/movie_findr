@@ -1,4 +1,4 @@
-import 'package:movie_flow/.env.dart';
+import 'package:movie_findr/.env.dart';
 
 class AppConfig {
   final String tmdbApiKey;

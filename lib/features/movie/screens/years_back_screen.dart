@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_flow/core/utils/constants.dart';
-import 'package:movie_flow/core/widgets/primary_button.dart';
-import 'package:movie_flow/features/movie/movie_controller.dart';
-import 'package:movie_flow/features/movie/screens/result_screen.dart';
+import 'package:movie_findr/core/utils/constants.dart';
+import 'package:movie_findr/core/widgets/primary_button.dart';
+import 'package:movie_findr/features/movie/movie_controller.dart';
+import 'package:movie_findr/features/movie/screens/result_screen.dart';
 
 class YearsBackScreen extends ConsumerWidget {
   const YearsBackScreen({super.key});

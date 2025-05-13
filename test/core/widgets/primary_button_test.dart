@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:movie_flow/core/index.dart';
+import 'package:movie_findr/core/index.dart';
 
 void main() {
   testWidgets('Should find a loading indicator when isLoading is true',

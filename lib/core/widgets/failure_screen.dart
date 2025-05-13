@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_flow/core/index.dart';
+import 'package:movie_findr/core/index.dart';
 
 class FailureScreen extends StatelessWidget {
   const FailureScreen({

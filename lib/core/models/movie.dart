@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:movie_flow/core/entities/movie_entity.dart';
-import 'package:movie_flow/core/models/genre.dart';
+import 'package:movie_findr/core/entities/movie_entity.dart';
+import 'package:movie_findr/core/models/genre.dart';
 
 @immutable
 class Movie {

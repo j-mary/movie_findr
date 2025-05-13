@@ -1,11 +1,11 @@
 {
-    "name": "movie_flow",
-    "short_name": "movie_flow",
+    "name": "MovieFindr",
+    "short_name": "MovieFindr",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "A Flutter application that helps users discover movie recommendations based on their preferences.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

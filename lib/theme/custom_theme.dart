@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_flow/theme/palette.dart';
+import 'package:movie_findr/theme/palette.dart';
 
 class CustomTheme {
   static ThemeData darkTheme(BuildContext context) {
