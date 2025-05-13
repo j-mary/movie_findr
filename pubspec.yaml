@@ -23,8 +23,28 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  integration_test:
+    sdk: flutter
   mocktail: ^1.0.4
   flutter_lints: ^5.0.0
+  rps: ^0.7.0
+
+# Scripts that can be run with "Dart run rps <script>"
+scripts:
+  # Integration tests
+  integration: flutter drive --driver=test_driver/integration_test.dart --target=integration_test/movie_feature_test.dart
+
+  # Unit tests
+  test: flutter test
+  test:watch: flutter test --watch
+
+  # Build and run
+  build:android: flutter build apk --release
+  build:ios: flutter build ios --release
+  clean: flutter clean
+
+  # Linting
+  lint: flutter analyze
 
 flutter:
   uses-material-design: true
