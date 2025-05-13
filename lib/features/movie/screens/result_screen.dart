@@ -4,14 +4,15 @@ import 'package:movie_flow/core/index.dart';
 import 'package:movie_flow/features/movie/movie_controller.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class ResultScreenAnimator extends StatefulWidget {
+class ResultScreenAnimator extends ConsumerStatefulWidget {
   const ResultScreenAnimator({super.key});
 
   @override
-  ResultScreenAnimatorState createState() => ResultScreenAnimatorState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ResultScreenAnimatorState();
 }
 
-class ResultScreenAnimatorState extends State<ResultScreenAnimator>
+class _ResultScreenAnimatorState extends ConsumerState<ResultScreenAnimator>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -22,8 +23,6 @@ class ResultScreenAnimatorState extends State<ResultScreenAnimator>
       duration: const Duration(seconds: 1),
       vsync: this,
     );
-
-    _controller.forward();
   }
 
   @override
@@ -34,6 +33,13 @@ class ResultScreenAnimatorState extends State<ResultScreenAnimator>
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(movieFlowControllerProvider, (oldState, newState) {
+      if (oldState?.movie is AsyncLoading && newState.movie is AsyncData) {
+        _controller.reset();
+        _controller.forward();
+      }
+    });
+
     return ResultScreen(
       animationController: _controller,
     );
@@ -99,19 +105,20 @@ class ResultScreen extends ConsumerWidget {
             icon: Icon(Icons.close)),
       ),
       body: ref.watch(movieFlowControllerProvider).movie.when(
-            data: (movie) => _buildResults(movie, context, UniqueKey(),
+            data: (movie) => _buildResults(movie, context, ValueKey('data'),
                 applyAnimations: true),
             error: (error, stackTrace) => FailureScreen(
                 error: error, retry: () => notifier.getRecommendedMovie()),
             loading: () => Skeletonizer(
                 enabled: true,
-                child: _buildResults(Movie.initial(), context, UniqueKey(),
+                child: _buildResults(
+                    Movie.initial(), context, ValueKey('loading'),
                     applyAnimations: false)),
           ),
     );
   }
 
-  Widget _buildResults(Movie movie, BuildContext context, UniqueKey key,
+  Widget _buildResults(Movie movie, BuildContext context, ValueKey key,
       {required bool applyAnimations}) {
     return Column(
       key: key,
