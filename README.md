@@ -2,7 +2,7 @@
 
 A Flutter application that helps users discover movie recommendations based on their preferences with beautiful animations and a smooth user experience.
 
-![MovieFindr App](assets/images/undraw_horror_movie.png)
+![MovieFindr App](assets/images/undraw_movie.png)
 
 ## Overview
 
