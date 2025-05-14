@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:movie_findr/core/router/routes.dart';
 import 'package:movie_findr/core/utils/constants.dart';
 import 'package:movie_findr/core/widgets/primary_button.dart';
 import 'package:movie_findr/features/movie/movie_controller.dart';
@@ -16,9 +18,7 @@ class RatingScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(
-          onPressed: notifier.previousPage,
-        ),
+        leading: BackButton(),
       ),
       body: Center(
         child: Column(
@@ -49,7 +49,7 @@ class RatingScreen extends ConsumerWidget {
             ),
             const Spacer(),
             PrimaryButton(
-              onPressed: notifier.nextPage,
+              onPressed: () => context.pushNamed(yearsBackScreen),
               text: 'Yes please',
             ),
             const SizedBox(height: kMediumSpacing)

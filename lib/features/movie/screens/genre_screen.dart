@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie_findr/core/index.dart';
+import 'package:movie_findr/core/router/routes.dart';
 import 'package:movie_findr/features/movie/movie_controller.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -19,9 +21,7 @@ class GenreScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(
-          onPressed: notifier.previousPage,
-        ),
+        leading: BackButton(),
       ),
       body: Center(
         child: Column(
@@ -44,7 +44,19 @@ class GenreScreen extends ConsumerWidget {
                             List.filled(2, Genre.initial()), ref)),
                   ),
             ),
-            PrimaryButton(onPressed: notifier.nextPage, text: 'Continue'),
+            PrimaryButton(
+              onPressed: () {
+                if (!ref
+                    .read(movieFlowControllerProvider)
+                    .genres
+                    .value!
+                    .any((element) => element.isSelected == true)) {
+                  return;
+                }
+                context.pushNamed(ratingScreen);
+              },
+              text: 'Continue',
+            ),
             const SizedBox(height: kMediumSpacing)
           ],
         ),

@@ -6,14 +6,12 @@ import 'package:movie_findr/core/models/movie.dart';
 
 @immutable
 class MovieState extends Equatable {
-  final PageController pageController;
   final int rating;
   final int yearsBack;
   final AsyncValue<List<Genre>> genres;
   final AsyncValue<Movie> movie;
 
   const MovieState({
-    required this.pageController,
     this.rating = 5,
     this.yearsBack = 10,
     required this.genres,
@@ -22,21 +20,18 @@ class MovieState extends Equatable {
 
   factory MovieState.initial() {
     return MovieState(
-      pageController: PageController(),
       genres: AsyncData([]),
       movie: AsyncData(Movie.initial()),
     );
   }
 
   MovieState copyWith({
-    PageController? pageController,
     int? rating,
     int? yearsBack,
     AsyncValue<List<Genre>>? genres,
     AsyncValue<Movie>? movie,
   }) {
     return MovieState(
-      pageController: pageController ?? this.pageController,
       rating: rating ?? this.rating,
       yearsBack: yearsBack ?? this.yearsBack,
       genres: genres ?? this.genres,
@@ -46,7 +41,6 @@ class MovieState extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
-      'pageController': pageController,
       'rating': rating,
       'yearsBack': yearsBack,
       'genres': genres.value?.map((e) => e.toMap()).toList(),
@@ -59,7 +53,6 @@ class MovieState extends Equatable {
 
   @override
   List<Object?> get props => [
-        pageController,
         rating,
         yearsBack,
         genres,

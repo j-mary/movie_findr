@@ -23,17 +23,7 @@ final genreTestMovieFlowControllerProvider =
 class GenreTestMovieFlowController extends MovieFlowController {
   @override
   MovieState build() {
-    ref.onDispose(() {
-      state.pageController.dispose();
-    });
-
     movieService = ref.read(movieServiceProvider);
-
-    // Don't auto-load genres in tests
-    // Future(() async {
-    //   await loadGenres();
-    // });
-
     return MovieState.initial();
   }
 }

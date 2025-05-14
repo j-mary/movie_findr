@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie_findr/core/index.dart';
 import 'package:movie_findr/features/movie/movie_controller.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -101,8 +102,9 @@ class ResultScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () => Navigator.of(context).pop(),
-            icon: Icon(Icons.close)),
+          onPressed: () => context.pop(),
+          icon: Icon(Icons.close),
+        ),
       ),
       body: ref.watch(movieFlowControllerProvider).movie.when(
             data: (movie) => _buildResults(movie, context, ValueKey('data'),
@@ -163,7 +165,7 @@ class ResultScreen extends ConsumerWidget {
           applyAnimations: applyAnimations,
           animation: buttonOpacity,
           child: PrimaryButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => context.pop(),
             text: 'Find another movie',
           ),
         ),

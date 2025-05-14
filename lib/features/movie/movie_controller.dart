@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_findr/core/index.dart';
 import 'package:movie_findr/features/movie/movie_service.dart';
@@ -14,10 +13,6 @@ class MovieFlowController extends AutoDisposeNotifier<MovieState> {
 
   @override
   MovieState build() {
-    ref.onDispose(() {
-      state.pageController.dispose();
-    });
-
     movieService = ref.read(movieServiceProvider);
 
     Future(() async {
@@ -76,26 +71,6 @@ class MovieFlowController extends AutoDisposeNotifier<MovieState> {
   void updateYearsBack(int updatedYearsBack) {
     state =
         state.copyWith(yearsBack: updatedYearsBack < 0 ? 0 : updatedYearsBack);
-  }
-
-  void nextPage() {
-    if (state.pageController.page! >= 1) {
-      if (!state.genres.value!.any((element) => element.isSelected == true)) {
-        return;
-      }
-    }
-
-    state.pageController.nextPage(
-      duration: const Duration(milliseconds: 600),
-      curve: Curves.easeOutCubic,
-    );
-  }
-
-  void previousPage() {
-    state.pageController.previousPage(
-      duration: const Duration(microseconds: 600),
-      curve: Curves.easeInCubic,
-    );
   }
 
   Future<void> reset({bool? resetGenres}) async {

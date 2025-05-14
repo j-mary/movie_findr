@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie_findr/core/index.dart';
-import 'package:movie_findr/features/movie/movie_controller.dart';
+import 'package:movie_findr/core/router/index.dart';
 import 'package:movie_findr/features/movie/movie_state.dart';
 
 class LandingScreen extends ConsumerStatefulWidget {
@@ -110,8 +111,7 @@ class _LandingScreenState extends ConsumerState<LandingScreen>
                   end: Offset.zero,
                 ).animate(buttonAnimation),
                 child: PrimaryButton(
-                  onPressed:
-                      ref.read(movieFlowControllerProvider.notifier).nextPage,
+                  onPressed: () => context.pushNamed(genreScreen),
                   text: 'Get Started',
                 ),
               ),

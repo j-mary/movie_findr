@@ -37,6 +37,18 @@ class Movie {
     );
   }
 
+  factory Movie.fromMap(Map<String, dynamic> map) {
+    return Movie(
+      title: map['title'] ?? '',
+      overview: map['overview'] ?? '',
+      voteAverage: map['voteAverage']?.toDouble() ?? 0,
+      genres: (map['genres'] as List<dynamic>?)?.cast<Genre>() ?? [],
+      releaseDate: map['releaseDate'] ?? '',
+      backdropPath: map['backdropPath'],
+      posterPath: map['posterPath'],
+    );
+  }
+
   Movie.initial()
       : title = "The King's Man",
         overview =
