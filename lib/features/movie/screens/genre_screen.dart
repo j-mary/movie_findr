@@ -41,7 +41,7 @@ class GenreScreen extends ConsumerWidget {
                     loading: () => Skeletonizer(
                         enabled: true,
                         child: _buildGenreList(
-                            List.filled(2, Genre.initial()), ref)),
+                            List.filled(20, Genre.initial()), ref)),
                   ),
             ),
             PrimaryButton(
