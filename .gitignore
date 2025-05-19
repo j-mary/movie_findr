@@ -50,3 +50,13 @@ android/app/.cxx/Debug/
 
 # Ignore all .env files
 .env*
+
+launch.json
+
+# FVM Version Cache
+.fvm/
+
+# https://codewithandrea.com/articles/flutter-firebase-multiple-flavors-flutterfire-cli/
+flutterfire-config.sh
+firebase.json
+firebase_config

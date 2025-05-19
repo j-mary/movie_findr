@@ -1,0 +1,69 @@
+#!/bin/bash
+# Script to generate Firebase configuration files for different environments/flavors
+# Feel free to reuse and adapt this script for your own projects
+
+if [[ $# -eq 0 ]]; then
+  echo "Error: No environment specified. Use 'dev', 'stg', or 'prod'."
+  exit 1
+fi
+
+case $1 in
+  dev)
+    flutterfire config \
+      --project=flutter-ship-dev \
+      --out=lib/firebase_options_dev.dart \
+      --ios-bundle-id=com.codewithandrea.flutterShipApp.dev \
+      --ios-out=ios/flavors/dev/GoogleService-Info.plist \
+      --android-package-name=com.codewithandrea.flutter_ship_app.dev \
+      --android-out=android/app/src/dev/google-services.json
+    ;;
+  stg)
+    flutterfire config \
+      --project=flutter-ship-stg \
+      --out=lib/firebase_options_stg.dart \
+      --ios-bundle-id=com.codewithandrea.flutterShipApp.stg \
+      --ios-out=ios/flavors/stg/GoogleService-Info.plist \
+      --android-package-name=com.codewithandrea.flutter_ship_app.stg \
+      --android-out=android/app/src/stg/google-services.json
+    ;;
+  prod)
+    flutterfire config \
+      --project=flutter-ship-prod \
+      --out=lib/firebase_options_prod.dart \
+      --ios-bundle-id=com.codewithandrea.flutterShipApp \
+      --ios-out=ios/flavors/prod/GoogleService-Info.plist \
+      --android-package-name=com.codewithandrea.flutter_ship_app \
+      --android-out=android/app/src/prod/google-services.json
+    ;;
+  *)
+    echo "Error: Invalid environment specified. Use 'dev', 'stg', or 'prod'."
+    exit 1
+    ;;
+esac
+
+
+Prerequisites
+Note: This guide assumes you already have a Flutter app that runs correctly with dev, stg, and prod flavors on iOS and Android:
+
+Here’s what each argument does:
+
+--project: The Firebase project to use (note: pass the project ID, not the alias).
+--out: Output path for the Firebase config file.
+--ios-bundle-id: iOS app’s bundle ID. Find it in Xcode under Runner > General > Identity > Bundle Identifier.
+--ios-out: Output path for the iOS GoogleService-Info.plist.
+--android-package-name: Android app’s package name (found as applicationId in android/app/build.gradle.kts).
+--android-out: Output path for the Android google-services.json.
+To learn about all the available options, run flutterfire config --help.
+
+Running the FlutterFire Script for each Flavor
+To configure the dev flavor, run:
+
+./flutterfire-config.sh dev
+When prompted, select "Build configuration":
+
+? You have to choose a configuration type. Either build configuration (most likely choice) or a target set up. ›                    
+❯ Build configuration
+  Target   
+Then, choose the Debug-dev build configuration:
+
+SOURCE: https://codewithandrea.com/articles/flutter-firebase-multiple-flavors-flutterfire-cli/
