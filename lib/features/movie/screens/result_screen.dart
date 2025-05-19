@@ -35,7 +35,8 @@ class _ResultScreenAnimatorState extends ConsumerState<ResultScreenAnimator>
   @override
   Widget build(BuildContext context) {
     ref.listen(movieFlowControllerProvider, (oldState, newState) {
-      if (oldState?.movie is AsyncLoading && newState.movie is AsyncData) {
+      if (oldState?.recommendedMovie is AsyncLoading &&
+          newState.recommendedMovie is AsyncData) {
         _controller.reset();
         _controller.forward();
       }
@@ -106,7 +107,7 @@ class ResultScreen extends ConsumerWidget {
           icon: Icon(Icons.close),
         ),
       ),
-      body: ref.watch(movieFlowControllerProvider).movie.when(
+      body: ref.watch(movieFlowControllerProvider).recommendedMovie.when(
             data: (movie) => _buildResults(movie, context, ValueKey('data'),
                 applyAnimations: true),
             error: (error, stackTrace) => FailureScreen(

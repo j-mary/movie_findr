@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_findr/core/index.dart';
 import 'package:movie_findr/features/movie/movie_repository.dart';
@@ -12,7 +10,7 @@ final movieServiceProvider = Provider<MovieService>((ref) {
 
 abstract class MovieService {
   Future<Result<List<Genre>, Failure>> getGenres();
-  Future<Result<Movie, Failure>> getRecommendedMovies(
+  Future<Result<List<Movie>, Failure>> getRecommendedMovies(
       int rating, int yearsBack, List<Genre> genres,
       [DateTime? yearsBackFromDate]);
 }
@@ -34,7 +32,7 @@ class TMDBMovieService implements MovieService {
   }
 
   @override
-  Future<Result<Movie, Failure>> getRecommendedMovies(
+  Future<Result<List<Movie>, Failure>> getRecommendedMovies(
       int rating, int yearsBack, List<Genre> genres,
       [DateTime? yearsBackFromDate]) async {
     try {
@@ -44,9 +42,7 @@ class TMDBMovieService implements MovieService {
       final entities = await _movieRepository.getRecommendedMovies(
           rating.toDouble(), '$year-01-01', genreIds);
       final movies = entities.map((e) => Movie.fromEntity(e, genres)).toList();
-      final rnd = Random();
-      final randomMovie = movies[rnd.nextInt(movies.length)];
-      return Success(randomMovie);
+      return Success(movies);
     } on Failure catch (e) {
       return Error(e);
     }

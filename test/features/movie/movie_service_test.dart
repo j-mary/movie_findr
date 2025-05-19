@@ -85,12 +85,12 @@ void main() {
           .called(1);
 
       result.when(
-        (movie) {
-          expect(movie, isA<Movie>());
-          expect(movie.title, movieEntity.title);
-          expect(movie.voteAverage, movieEntity.voteAverage);
-          expect(movie.genres, isNotEmpty);
-          expect(movie.releaseDate, movieEntity.releaseDate);
+        (movies) {
+          expect(movies, isA<List<Movie>>());
+          expect(movies.first.title, movieEntity.title);
+          expect(movies.first.voteAverage, movieEntity.voteAverage);
+          expect(movies.first.genres, isNotEmpty);
+          expect(movies.first.releaseDate, movieEntity.releaseDate);
         },
         (failure) {
           fail('Should not reach here');

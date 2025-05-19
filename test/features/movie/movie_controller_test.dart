@@ -141,10 +141,10 @@ void main() {
       genreTestContainer.dispose();
     });
 
-    test('Should get recommended movie', () async {
+    test('Should get recommended movies', () async {
       // Arrange
       when(() => mockedMovieService.getRecommendedMovies(any(), any(), any()))
-          .thenAnswer((_) async => Success(Movie.initial()));
+          .thenAnswer((_) async => Success([Movie.initial()]));
 
       // Act
       final controller = container.read(movieFlowControllerProvider.notifier);
@@ -155,9 +155,9 @@ void main() {
           .called(1);
 
       final state = container.read(movieFlowControllerProvider);
-      expect(state.movie, isA<AsyncData<Movie>>());
-      expect(state.movie.value, isA<Movie>());
-      expect(state.movie.value!.title, Movie.initial().title);
+      expect(state.recommendedMovie, isA<AsyncData<Movie>>());
+      expect(state.recommendedMovie.value, isA<Movie>());
+      expect(state.recommendedMovie.value!.title, Movie.initial().title);
     });
 
     test('Should return a Failure when getting recommended movie fails',
@@ -175,9 +175,9 @@ void main() {
           .called(1);
 
       final state = container.read(movieFlowControllerProvider);
-      expect(state.movie, isA<AsyncError<Movie>>());
-      expect(state.movie.error, isA<Failure>());
-      expect((state.movie.error as Failure).message, 'Bad data');
+      expect(state.recommendedMovie, isA<AsyncError<Movie>>());
+      expect(state.recommendedMovie.error, isA<Failure>());
+      expect((state.recommendedMovie.error as Failure).message, 'Bad data');
     });
 
     for (final rating in [2, 5, -2]) {

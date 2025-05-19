@@ -32,17 +32,19 @@ dev_dependencies:
   rps: ^0.7.0
   flutter_launcher_icons: ^0.14.3
 
-# Scripts that can be run with "Dart run rps <script>"
+# Scripts that can be run with "dart run rps <script>"
 scripts:
   # Integration tests
-  integration: flutter drive --driver=test_driver/integration_test.dart --target=integration_test/movie_feature_test.dart
+  integration: flutter drive --driver=test_driver/integration_test.dart --target=integration_test/movie_feature_test.dart --flavor dev
 
   # Unit tests
   test: flutter test
   test:watch: flutter test --watch
 
   # Build and run
-  build:android: flutter build apk --release
+  build:android:dev: flutter build apk --release --flavor dev --split-per-abi
+  build:android:prod: flutter build apk --release --flavor prod --split-per-abi
+  build:android:all: flutter build apk --release
   build:ios: flutter build ios --release
   clean: flutter clean
 

@@ -18,6 +18,9 @@ MovieFindr guides users through an engaging, animated flow to collect preference
 - **Elegant Dark Theme**: Comfortable viewing experience with a dark color scheme
 - **Offline Error Handling**: Graceful error handling with retry options
 - **Responsive Design**: Works on various screen sizes
+- **Multiple Flavors**: Development and Production environments with separate configurations
+- **Firebase Integration**: Ready for Firebase services with environment-specific configurations
+- **App Signing**: Configured for release builds with proper app signing
 
 ## Screenshots
 
@@ -30,6 +33,8 @@ MovieFindr guides users through an engaging, animated flow to collect preference
 - Flutter SDK (>=3.4.4)
 - Dart SDK (>=3.4.4)
 - A TMDb API key (for movie data)
+- Firebase project (for dev and prod environments)
+- Android keystore for app signing (for release builds)
 
 ### Installation
 
@@ -45,22 +50,64 @@ git clone https://github.com/j-mary/movie_findr.git
 cd movie_findr
 ```
 
-3. Create a `.env.dart` file in the `lib` directory with your TMDb API key:
+3. Set up environment configuration:
 
-```dart
-const String tmdbApiKey = 'your_api_key_here';
-```
+   Create a `lib/env.dart` file based on the example file:
 
-4. Install dependencies
+   ```dart
+   final devEnv = {
+     'TMDB_API_KEY': 'your_tmdb_api_key_here',
+     'ENVIRONMENT': 'dev',
+   };
+
+   final prodEnv = {
+     'TMDB_API_KEY': 'your_tmdb_api_key_here',
+     'ENVIRONMENT': 'prod',
+   };
+
+   final env = () {
+     final envName = const String.fromEnvironment('ENVIRONMENT');
+     if (envName == 'prod') return prodEnv;
+     return devEnv;
+   }();
+   ```
+
+4. Set up Firebase configuration:
+
+   Copy the `flutterfire-config.sh.example` file to `flutterfire-config.sh` and update it with your Firebase project IDs.
+   Then run:
+
+   ```bash
+   chmod +x flutterfire-config.sh
+   ./flutterfire-config.sh dev
+   ./flutterfire-config.sh prod
+   ```
+
+5. Set up app signing (for release builds):
+
+   Create a `key.properties` file in the `android` directory:
+
+   ```
+   storePassword=your_keystore_password
+   keyPassword=your_key_password
+   keyAlias=your_key_alias
+   storeFile=path/to/your/keystore.jks
+   ```
+
+6. Install dependencies
 
 ```bash
 flutter pub get
 ```
 
-5. Run the app
+7. Run the app with the desired flavor
 
 ```bash
-flutter run
+# Run with dev flavor
+flutter run --flavor dev -t lib/main.dart
+
+# Run with prod flavor
+flutter run --flavor prod -t lib/main.dart
 ```
 
 ## Architecture
@@ -84,6 +131,11 @@ For detailed information about the project architecture and folder structure, pl
 - **UI/Animations**:
 
   - skeletonizer: ^1.4.3
+  - go_router: ^15.1.2
+
+- **Firebase**:
+
+  - firebase_core: ^3.13.0
 
 - **Utilities**:
   - equatable: ^2.0.7
@@ -97,8 +149,8 @@ The project includes both unit tests and integration tests:
 # Run unit tests
 flutter test
 
-# Run integration tests
-flutter drive --driver=test_driver/integration_test.dart --target=integration_test/movie_feature_test.dart
+# Run integration tests (with dev flavor)
+flutter drive --driver=test_driver/integration_test.dart --target=integration_test/movie_feature_test.dart --flavor dev
 ```
 
 ## Scripts
@@ -115,17 +167,26 @@ dart run rps test
 # Watch tests during development
 dart run rps test:watch
 
-# Build for Android
-dart run rps build:android
+# Build for Android (dev flavor)
+flutter build apk --flavor dev
 
-# Build for iOS
-dart run rps build:ios
+# Build for Android (prod flavor)
+flutter build apk --flavor prod
+
+# Build for iOS (dev flavor)
+flutter build ios --flavor dev
+
+# Build for iOS (prod flavor)
+flutter build ios --flavor prod
 
 # Clean the project
-dart run rps clean
+flutter clean
 
 # Run linting
 dart run rps lint
+
+# Generate app icons
+flutter pub run flutter_launcher_icons
 ```
 
 ## Contributing

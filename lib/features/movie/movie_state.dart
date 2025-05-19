@@ -9,19 +9,22 @@ class MovieState extends Equatable {
   final int rating;
   final int yearsBack;
   final AsyncValue<List<Genre>> genres;
-  final AsyncValue<Movie> movie;
+  final AsyncValue<Movie> recommendedMovie;
+  final AsyncValue<List<Movie>> relatedMovies;
 
   const MovieState({
     this.rating = 5,
     this.yearsBack = 3,
     required this.genres,
-    required this.movie,
+    required this.recommendedMovie,
+    required this.relatedMovies,
   });
 
   factory MovieState.initial() {
     return MovieState(
       genres: AsyncData([]),
-      movie: AsyncData(Movie.initial()),
+      recommendedMovie: AsyncData(Movie.initial()),
+      relatedMovies: AsyncData([]),
     );
   }
 
@@ -29,13 +32,15 @@ class MovieState extends Equatable {
     int? rating,
     int? yearsBack,
     AsyncValue<List<Genre>>? genres,
-    AsyncValue<Movie>? movie,
+    AsyncValue<Movie>? recommendedMovie,
+    AsyncValue<List<Movie>>? relatedMovies,
   }) {
     return MovieState(
       rating: rating ?? this.rating,
       yearsBack: yearsBack ?? this.yearsBack,
       genres: genres ?? this.genres,
-      movie: movie ?? this.movie,
+      recommendedMovie: recommendedMovie ?? this.recommendedMovie,
+      relatedMovies: relatedMovies ?? this.relatedMovies,
     );
   }
 
@@ -44,7 +49,8 @@ class MovieState extends Equatable {
       'rating': rating,
       'yearsBack': yearsBack,
       'genres': genres.value?.map((e) => e.toMap()).toList(),
-      'movie': movie.value?.toMap(),
+      'recommendedMovie': recommendedMovie.value?.toMap(),
+      'relatedMovies': relatedMovies.value?.map((e) => e.toMap()).toList(),
     };
   }
 
@@ -56,7 +62,8 @@ class MovieState extends Equatable {
         rating,
         yearsBack,
         genres,
-        movie,
+        recommendedMovie,
+        relatedMovies,
       ];
 }
 

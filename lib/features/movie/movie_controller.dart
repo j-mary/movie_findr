@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_findr/core/index.dart';
 import 'package:movie_findr/features/movie/movie_service.dart';
@@ -40,7 +42,7 @@ class MovieFlowController extends AutoDisposeNotifier<MovieState> {
 
   Future<void> getRecommendedMovie() async {
     state = state.copyWith(
-      movie: const AsyncLoading(),
+      recommendedMovie: const AsyncLoading(),
     );
     final selectedGenres = state.genres.value!
         .where((genre) => genre.isSelected == true)
@@ -48,10 +50,16 @@ class MovieFlowController extends AutoDisposeNotifier<MovieState> {
     final result = await movieService.getRecommendedMovies(
         state.rating, state.yearsBack, selectedGenres);
     result.map(
-        successMapper: (movie) =>
-            state = state.copyWith(movie: AsyncValue.data(movie)),
-        errorMapper: (error) => state =
-            state.copyWith(movie: AsyncValue.error(error, StackTrace.current)));
+        successMapper: (movies) {
+          final rnd = Random();
+          final randomMovie = movies[rnd.nextInt(movies.length)];
+          movies.remove(randomMovie);
+          state = state.copyWith(
+              recommendedMovie: AsyncValue.data(randomMovie),
+              relatedMovies: AsyncValue.data(movies));
+        },
+        errorMapper: (error) => state = state.copyWith(
+            recommendedMovie: AsyncValue.error(error, StackTrace.current)));
   }
 
   void toggleSelected(Genre genre) {
