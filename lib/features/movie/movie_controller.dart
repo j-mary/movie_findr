@@ -90,4 +90,24 @@ class MovieFlowController extends AutoDisposeNotifier<MovieState> {
 
     return;
   }
+
+  void setRecommendedMovie(Movie movie) {
+    // Create a new list of related movies without the selected movie
+    final currentRelatedMovies = state.relatedMovies.value ?? [];
+    final updatedRelatedMovies = [...currentRelatedMovies];
+
+    // Add the current recommended movie to related movies if it exists
+    if (state.recommendedMovie.value != null) {
+      updatedRelatedMovies.add(state.recommendedMovie.value!);
+    }
+
+    // Remove the selected movie from related movies
+    updatedRelatedMovies.removeWhere((m) => m.title == movie.title);
+
+    // Update the state
+    state = state.copyWith(
+      recommendedMovie: AsyncValue.data(movie),
+      relatedMovies: AsyncValue.data(updatedRelatedMovies),
+    );
+  }
 }

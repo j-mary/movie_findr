@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_findr/core/index.dart';
+import 'package:movie_findr/core/router/index.dart';
 import 'package:movie_findr/features/movie/movie_controller.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -65,15 +66,23 @@ class ResultScreen extends ConsumerWidget {
         ),
         ratingOpacity = Tween<double>(begin: 0, end: 1).animate(
           CurvedAnimation(
-              parent: animationController, curve: const Interval(0.4, 0.6)),
+              parent: animationController, curve: const Interval(0.4, 0.5)),
+        ),
+        dateOpacity = Tween<double>(begin: 0, end: 1).animate(
+          CurvedAnimation(
+              parent: animationController, curve: const Interval(0.5, 0.6)),
         ),
         descriptionOpacity = Tween<double>(begin: 0, end: 1).animate(
           CurvedAnimation(
-              parent: animationController, curve: const Interval(0.6, 0.8)),
+              parent: animationController, curve: const Interval(0.6, 0.7)),
+        ),
+        relatedMoviesOpacity = Tween<double>(begin: 0, end: 1).animate(
+          CurvedAnimation(
+              parent: animationController, curve: const Interval(0.7, 0.9)),
         ),
         buttonOpacity = Tween<double>(begin: 0, end: 1).animate(
           CurvedAnimation(
-              parent: animationController, curve: const Interval(0.8, 1)),
+              parent: animationController, curve: const Interval(0.9, 1)),
         );
 
   final AnimationController animationController;
@@ -81,7 +90,9 @@ class ResultScreen extends ConsumerWidget {
   final Animation<double> titleOpacity;
   final Animation<double> genreOpacity;
   final Animation<double> ratingOpacity;
+  final Animation<double> dateOpacity;
   final Animation<double> descriptionOpacity;
+  final Animation<double> relatedMoviesOpacity;
   final Animation<double> buttonOpacity;
 
   final double movieHeight = 150;
@@ -121,13 +132,27 @@ class ResultScreen extends ConsumerWidget {
     );
   }
 
+  final ScrollController _scrollController = ScrollController();
+
   Widget _buildResults(Movie movie, BuildContext context, ValueKey key,
       {required bool applyAnimations}) {
+    // Scroll to top when a new movie is displayed
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          0,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+
     return Column(
       key: key,
       children: [
         Expanded(
           child: ListView(
+            controller: _scrollController,
             children: [
               Stack(
                 clipBehavior: Clip.none,
@@ -142,6 +167,7 @@ class ResultScreen extends ConsumerWidget {
                       titleOpacity: titleOpacity,
                       genreOpacity: genreOpacity,
                       ratingOpacity: ratingOpacity,
+                      dateOpacity: dateOpacity,
                       applyAnimations: applyAnimations,
                     ),
                   )
@@ -159,6 +185,11 @@ class ResultScreen extends ConsumerWidget {
                   ),
                 ),
               ),
+              _buildAnimatedWidget(
+                applyAnimations: applyAnimations,
+                animation: relatedMoviesOpacity,
+                child: RelatedMoviesSection(),
+              ),
             ],
           ),
         ),
@@ -166,7 +197,7 @@ class ResultScreen extends ConsumerWidget {
           applyAnimations: applyAnimations,
           animation: buttonOpacity,
           child: PrimaryButton(
-            onPressed: () => context.pop(),
+            onPressed: () => context.goNamed(landingScreen),
             text: 'Find another movie',
           ),
         ),
@@ -215,6 +246,7 @@ class MovieImageDetails extends StatelessWidget {
     required this.titleOpacity,
     required this.genreOpacity,
     required this.ratingOpacity,
+    required this.dateOpacity,
     required this.applyAnimations,
   });
 
@@ -223,6 +255,7 @@ class MovieImageDetails extends StatelessWidget {
   final Animation<double> titleOpacity;
   final Animation<double> genreOpacity;
   final Animation<double> ratingOpacity;
+  final Animation<double> dateOpacity;
   final bool applyAnimations;
 
   Widget _buildAnimatedWidget({
@@ -233,6 +266,16 @@ class MovieImageDetails extends StatelessWidget {
     return applyAnimations
         ? FadeTransition(opacity: animation, child: child)
         : child;
+  }
+
+  String _formatReleaseDate(String date) {
+    if (date.isEmpty) return 'Unknown';
+    try {
+      final parsedDate = DateTime.parse(date);
+      return 'Released: ${parsedDate.toShortDate()}';
+    } catch (e) {
+      return 'Released: $date';
+    }
   }
 
   @override
@@ -290,10 +333,174 @@ class MovieImageDetails extends StatelessWidget {
                     ],
                   ),
                 ),
+                _buildAnimatedWidget(
+                  applyAnimations: applyAnimations,
+                  animation: dateOpacity,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.calendar_today,
+                        size: 16,
+                        color: Colors.white70,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        _formatReleaseDate(movie.releaseDate),
+                        style: textTheme.bodyMedium?.copyWith(
+                            color: textTheme.bodyMedium?.color
+                                ?.withValues(alpha: 0.62)),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class RelatedMoviesSection extends ConsumerWidget {
+  const RelatedMoviesSection({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final textTheme = Theme.of(context).textTheme;
+    final relatedMovies = ref.watch(movieFlowControllerProvider).relatedMovies;
+
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12.0),
+            child: Row(
+              children: [
+                Text(
+                  'You might also like',
+                  style: textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  '(${relatedMovies.value?.length ?? 0})',
+                  style: textTheme.bodyMedium?.copyWith(
+                      // color: textTheme.bodyMedium?.color?.withValues(alpha: 0.62),
+                      ),
+                ),
+              ],
+            ),
+          ),
+          relatedMovies.when(
+            data: (movies) {
+              if (movies.isEmpty) {
+                return const SizedBox.shrink();
+              }
+              return SizedBox(
+                height: 255,
+                width: MediaQuery.of(context).size.width,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: movies.length,
+                  itemBuilder: (context, index) {
+                    final movie = movies[index];
+                    return SizedBox(
+                      width: 140,
+                      child: RelatedMovieCard(
+                        movie: movie,
+                        onTap: () {
+                          ref
+                              .read(movieFlowControllerProvider.notifier)
+                              .setRecommendedMovie(movie);
+                        },
+                      ),
+                    );
+                  },
+                ),
+              );
+            },
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error: (_, __) => const SizedBox.shrink(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class RelatedMovieCard extends StatelessWidget {
+  const RelatedMovieCard({
+    super.key,
+    required this.movie,
+    required this.onTap,
+  });
+
+  final Movie movie;
+  final VoidCallback onTap;
+
+  String _formatReleaseYear(String date) {
+    if (date.isEmpty) return '';
+    try {
+      final parsedDate = DateTime.parse(date);
+      return parsedDate.year.toString();
+    } catch (e) {
+      return '';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.only(right: 16),
+        width: 140,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(kBorderRadius),
+              child: Stack(
+                children: [
+                  AspectRatio(
+                    aspectRatio: 2 / 3,
+                    child: NetworkFadingImage(movie.posterPath ?? ''),
+                  ),
+                  Positioned.fill(
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: onTap,
+                        splashColor: Colors.black26,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              movie.title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              '${_formatReleaseYear(movie.releaseDate)} ${movie.voteAverage}⭐',
+              style: textTheme.bodySmall?.copyWith(
+                color: Colors.white70,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
