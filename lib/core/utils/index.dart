@@ -4,3 +4,4 @@ export 'failure.dart';
 export 'methods.dart';
 export 'providers.dart';
 export 'timestamp.dart';
+export 'values.dart';

@@ -1,9 +1,21 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_findr/core/models/app_config.dart';
 import 'package:movie_findr/core/router/index.dart';
+import 'package:movie_findr/core/utils/values.dart';
+import 'package:movie_findr/firebase_config/firebase_options_dev.dart' as dev;
+import 'package:movie_findr/firebase_config/firebase_options_prod.dart' as prod;
 import 'package:movie_findr/theme/custom_theme.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  FirebaseOptions? firebaseOptions = config.environment == ENVIRONMENT.dev
+      ? dev.DefaultFirebaseOptions.currentPlatform
+      : prod.DefaultFirebaseOptions.currentPlatform;
+  await Firebase.initializeApp(name: firebaseAppName, options: firebaseOptions);
+
   runApp(const ProviderScope(child: MyApp()));
 }
 

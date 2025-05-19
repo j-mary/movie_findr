@@ -13,7 +13,7 @@ class MovieState extends Equatable {
 
   const MovieState({
     this.rating = 5,
-    this.yearsBack = 10,
+    this.yearsBack = 3,
     required this.genres,
     required this.movie,
   });
